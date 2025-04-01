@@ -1,13 +1,19 @@
-#include "munk.h"
-#include "chipmunk.h"
+#include "PhysicsEngine.h"
 
-// Chipmunk2D physics space and objects
-cpSpace *space;
-cpBody *boxBody;
-cpShape *boxShape;
+// Constructor: Initialize Chipmunk2D physics
+PhysicsEngine::PhysicsEngine() {
+    initPhysics();
+}
 
-// Initialize Chipmunk2D physics
-void InitPhysics() {
+// Destructor: Cleanup Chipmunk2D physics
+PhysicsEngine::~PhysicsEngine() {
+    cpShapeFree(boxShape);
+    cpBodyFree(boxBody);
+    cpSpaceFree(space);
+}
+
+// Internal function to initialize physics
+void PhysicsEngine::initPhysics() {
     space = cpSpaceNew();
     cpSpaceSetGravity(space, cpv(0, 500));  // Gravity
 
@@ -25,19 +31,12 @@ void InitPhysics() {
     cpShapeSetFriction(boxShape, 0.7);
 }
 
-// Update Chipmunk2D physics
-void UpdatePhysics(float dt) {
+// Update physics simulation
+void PhysicsEngine::update(float dt) {
     cpSpaceStep(space, dt);
 }
 
-// ✅ New function: Get position (used in main.cpp for drawing)
-cpVect GetBoxPosition() {
+// Get box position
+cpVect PhysicsEngine::getBoxPosition() {
     return cpBodyGetPosition(boxBody);
-}
-
-// Cleanup Chipmunk2D
-void CleanupPhysics() {
-    cpShapeFree(boxShape);
-    cpBodyFree(boxBody);
-    cpSpaceFree(space);
 }
