@@ -11,13 +11,13 @@ int main() {
         physics.update(1.0f / 60.0f);  // Update physics
 
         // Get the position of the box from Chipmunk2D
-        cpVect boxPos = physics.getBoxPosition();
+        cpVect box_pos = physics.get_box_position();
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
         // ✅ Draw the physics box using Raylib (Rendering in main.cpp)
-        DrawRectangle(boxPos.x - 25, boxPos.y - 25, 50, 50, RED);
+        DrawRectangle(box_pos.x - 25, box_pos.y - 25, 50, 50, GREEN);
 
         EndDrawing();
     }
