@@ -7,15 +7,15 @@ PhysicsEngine::PhysicsEngine() {
 
 // Destructor: Cleanup Chipmunk2D physics
 PhysicsEngine::~PhysicsEngine() {
-    cpShapeFree(box_shape);
-    cpBodyFree(box_body);
-    cpSpaceFree(space);
+    cpShapeFree(_box_shape);
+    cpBodyFree(_box_body);
+    cpSpaceFree(_space);
 }
 
 // Internal function to initialize physics
 void PhysicsEngine::init_physics() {
-    space = cpSpaceNew();
-    cpSpaceSetGravity(space, cpv(0, 500));  // Gravity
+    _space = cpSpaceNew();
+    cpSpaceSetGravity(_space, cpv(0, 500));  // Gravity
 
     // Box properties
     cpFloat mass = 1.0;
@@ -23,20 +23,20 @@ void PhysicsEngine::init_physics() {
     cpFloat moment = cpMomentForBox(mass, width, height);
 
     // Create box body
-    box_body = cpSpaceAddBody(space, cpBodyNew(mass, moment));
-    cpBodySetPosition(box_body, cpv(400, 100));
+    _box_body = cpSpaceAddBody(_space, cpBodyNew(mass, moment));
+    cpBodySetPosition(_box_body, cpv(400, 100));
 
     // Create box shape
-    box_shape = cpSpaceAddShape(space, cpBoxShapeNew(box_body, width, height, 0.0));
-    cpShapeSetFriction(box_shape, 0.7);
+    _box_shape = cpSpaceAddShape(_space, cpBoxShapeNew(_box_body, width, height, 0.0));
+    cpShapeSetFriction(_box_shape, 0.7);
 }
 
 // Update physics simulation
 void PhysicsEngine::update(float dt) {
-    cpSpaceStep(space, dt);
+    cpSpaceStep(_space, dt);
 }
 
 // Get box position
 cpVect PhysicsEngine::get_box_position() {
-    return cpBodyGetPosition(box_body);
+    return cpBodyGetPosition(_box_body);
 }

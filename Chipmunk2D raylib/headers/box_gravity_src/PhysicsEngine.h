@@ -12,9 +12,9 @@ public:
     cpVect get_box_position();   // Get the position of the box
 
 private:
-    cpSpace* space;
-    cpBody* box_body;
-    cpShape* box_shape;
+    cpSpace* _space;
+    cpBody* _box_body;
+    cpShape* _box_shape;
 
     void init_physics();  // Internal function to initialize physics
 };

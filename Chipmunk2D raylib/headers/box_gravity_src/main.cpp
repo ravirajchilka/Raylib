@@ -17,7 +17,7 @@ int main() {
         ClearBackground(RAYWHITE);
 
         // ✅ Draw the physics box using Raylib (Rendering in main.cpp)
-        DrawRectangle(box_pos.x - 25, box_pos.y - 25, 50, 50, GREEN);
+        DrawRectangle(box_pos.x - 25, box_pos.y - 25, 50, 50, PURPLE);
 
         EndDrawing();
     }
