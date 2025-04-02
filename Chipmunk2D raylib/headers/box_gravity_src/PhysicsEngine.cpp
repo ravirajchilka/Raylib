@@ -1,37 +1,34 @@
 #include "PhysicsEngine.h"
 
-// Constructor: Initialize Chipmunk2D physics
+//constructor
 PhysicsEngine::PhysicsEngine() {
-    init_physics();
-}
+    _init_physics();
+}    
 
-// Destructor: Cleanup Chipmunk2D physics
-PhysicsEngine::~PhysicsEngine() {
-    cpShapeFree(_box_shape);
-    cpBodyFree(_box_body);
-    cpSpaceFree(_space);
-}
 
-// Internal function to initialize physics
-void PhysicsEngine::init_physics() {
+//init phyiscs properties
+void PhysicsEngine::_init_physics() {
+    // create space and set gravity
     _space = cpSpaceNew();
-    cpSpaceSetGravity(_space, cpv(0, 500));  // Gravity
+    cpSpaceSetGravity(_space,cpv(0,1200));
 
-    // Box properties
-    cpFloat mass = 1.0;
-    cpFloat width = 50.0, height = 50.0;
-    cpFloat moment = cpMomentForBox(mass, width, height);
+    // box physics
+    cpFloat mass = 1.0F;
+    cpFloat width = 50.0F;
+    cpFloat height = 50.0F;
+    cpFloat moment = cpMomentForBox(mass,width,height);
 
-    // Create box body
-    _box_body = cpSpaceAddBody(_space, cpBodyNew(mass, moment));
-    cpBodySetPosition(_box_body, cpv(400, 100));
-
-    // Create box shape
-    _box_shape = cpSpaceAddShape(_space, cpBoxShapeNew(_box_body, width, height, 0.0));
-    cpShapeSetFriction(_box_shape, 0.7);
+    // create box body and shape
+    _box_body = cpSpaceAddBody(_space,cpBodyNew(mass,moment));
+    _box_shape = cpSpaceAddShape(_space,cpBoxShapeNew(_box_body,width,height,0.0));
+    
+    //set position and friction
+    cpBodySetPosition(_box_body,cpv (400,100));
+    cpShapeSetFriction(_box_shape,0.7);
 }
 
-// Update physics simulation
+
+//update physics
 void PhysicsEngine::update(float dt) {
     cpSpaceStep(_space, dt);
 }
@@ -40,3 +37,13 @@ void PhysicsEngine::update(float dt) {
 cpVect PhysicsEngine::get_box_position() {
     return cpBodyGetPosition(_box_body);
 }
+
+//get box positions
+
+//desctructor
+PhysicsEngine::~PhysicsEngine() {
+    cpShapeFree(_box_shape);
+    cpBodyFree(_box_body);
+    cpSpaceFree(_space);
+}
+

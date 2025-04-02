@@ -4,19 +4,24 @@
 #include "chipmunk.h"
 
 class PhysicsEngine {
-public:
-    PhysicsEngine();      // Constructor initializes physics
-    ~PhysicsEngine();     // Destructor cleans up physics
+    public:
 
-    void update(float dt);     // Step the physics simulation
-    cpVect get_box_position();   // Get the position of the box
+        PhysicsEngine();
+        ~PhysicsEngine();
 
-private:
-    cpSpace* _space;
-    cpBody* _box_body;
-    cpShape* _box_shape;
+        void update(float dt);
+        cpVect get_box_position();
 
-    void init_physics();  // Internal function to initialize physics
+
+    private:
+
+        cpSpace *_space;
+        cpBody *_box_body;
+        cpShape *_box_shape;
+
+        void _init_physics();
+
 };
+
 
 #endif

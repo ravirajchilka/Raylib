@@ -1,28 +1,26 @@
 #include "raylib.h"
 #include "PhysicsEngine.h"
 
+
 int main() {
-    InitWindow(800, 600, "Chipmunk2D + Raylib");
-    SetTargetFPS(60);
+	InitWindow(800,600,"chipmunk2d+raylib");
+	SetTargetFPS(60);
 
-    PhysicsEngine physics;  // Create an instance of PhysicsEngine
+	PhysicsEngine physics;
 
-    while (!WindowShouldClose()) {
-        physics.update(1.0f / 60.0f);  // Update physics
+	while(!WindowShouldClose()) {
+		physics.update(1.0F/60.0F);	
 
-        // Get the position of the box from Chipmunk2D
-        cpVect box_pos = physics.get_box_position();
+		auto box_pos = physics.get_box_position();
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+		BeginDrawing();
+			ClearBackground(RAYWHITE);
+			DrawRectangle(box_pos.x,box_pos.y,50,50,BROWN);
+		EndDrawing();
 
-        // ✅ Draw the physics box using Raylib (Rendering in main.cpp)
-        DrawRectangle(box_pos.x - 25, box_pos.y - 25, 50, 50, PURPLE);
+	}
 
-        EndDrawing();
-    }
-
-    CloseWindow();
-    return 0;
+	return 0;
 }
+
 
